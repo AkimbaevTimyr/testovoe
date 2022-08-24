@@ -1,11 +1,11 @@
 export interface NoteInterface {
     id: number;
-    text: string;
+    text: string | null;
     tag: string;
 }
 
 export type NoteType =  {
     id: number;
-    text: string;
+    text: string | null;
     tag: string;
 }

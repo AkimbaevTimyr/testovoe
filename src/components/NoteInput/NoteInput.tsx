@@ -3,12 +3,16 @@ import {
   } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import Container from '@mui/material/Container';
-import { FC } from "react";
+import { FC, useState } from "react";
+import { NoteType } from "../../types/noteTypes";
+import { useAppContext } from "../../store/store";
+import {useEffect, useRef} from 'react'
 
 const useStyles = makeStyles()(() => ({
     container: {
         display: "flex",
-        justifyContent: "center"
+        justifyContent: "center",
+        flexWrap: 'wrap',
     },
     input: {
         width: 500,
@@ -22,10 +26,31 @@ const useStyles = makeStyles()(() => ({
 
 
 const NoteInput: FC = () => {
+  const inputRef = useRef<HTMLHeadingElement>(null)
+    // useEffect(() => {
+    //     document.addEventListener('click', (e: any) => {
+    //         if (inputRef.current == null) {
+    //         }
+    //     })
+    // }, [])
+    const {notes} = useAppContext()
     const {classes} = useStyles()
+    const [text, setText] = useState<string>('')
+
+    const handleBlur = () =>{
+      if(text.length != 0){
+        const note: NoteType = {
+          id: Number(Date.now()),
+          text,
+          tag: ""
+        }
+        notes.setNotes(note)
+        setText("")
+      }
+    }
   return (
-    <Container className={classes.container} maxWidth="xl">
-        <InputBase className={classes.input} placeholder='Заметка...'/>
+    <Container  ref={inputRef} className={classes.container} maxWidth="xl">
+        <InputBase value={text} onBlur={handleBlur} onChange={(e)=> setText(e.target.value)} className={classes.input} placeholder='Заметка...'/>
     </Container>
   )
 }
