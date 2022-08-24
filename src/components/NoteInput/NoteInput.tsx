@@ -3,6 +3,7 @@ import {
   } from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import Container from '@mui/material/Container';
+import { FC } from "react";
 
 const useStyles = makeStyles()(() => ({
     container: {
@@ -19,7 +20,8 @@ const useStyles = makeStyles()(() => ({
     }));
    
 
-const NoteInput = () => {
+
+const NoteInput: FC = () => {
     const {classes} = useStyles()
   return (
     <Container className={classes.container} maxWidth="xl">

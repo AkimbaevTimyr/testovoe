@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {FC} from 'react'
 import { Typography, Paper } from '@mui/material';
 import { makeStyles } from "tss-react/mui";
+import { NoteInterface, } from '../../types/noteTypes';
 
 const useStyles = makeStyles()(() => ({
     item: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles()(() => ({
     },
     itemTag: {
         width: "fit-content",
-        backgroundColor:  "#C0C0C0",
+        backgroundColor: "#C0C0C0",
         borderRadius: "15px",
         fontSize: "11px",
         cursor: "pointer",
@@ -31,21 +32,20 @@ const useStyles = makeStyles()(() => ({
             scale: "1.05",
         }
     }
-    }));
-   
+}));
 
-const NoteItem = () => {
-    const {classes} = useStyles();
-  return (
-    <Paper className={classes.item}>
-        <Typography>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aliquid sequi volupta
-        </Typography>
-        <Typography className={classes.itemTag}>
-            Английский
-        </Typography>
-    </Paper>
-  )
+const NoteItem: FC<NoteInterface> = ({id, text, tag}) => {
+    const { classes } = useStyles();
+    return (
+        <Paper className={classes.item}>
+            <Typography>
+                {text}
+            </Typography>
+            <Typography className={classes.itemTag}>
+               {tag}
+            </Typography>
+        </Paper>
+    )
 }
 
 export default NoteItem

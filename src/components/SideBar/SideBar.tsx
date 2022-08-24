@@ -5,8 +5,10 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
+import { useContext } from "react";
  
 import { makeStyles } from "tss-react/mui";
+import {Context, useAppContext} from '../../store/store'
 
 const useStyles = makeStyles()(() => ({
   menuSliderContainer: {
@@ -37,7 +39,7 @@ const img = <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewB
 
 const SideBar = () => {
   const {classes} = useStyles();
-
+  
   return (
     <Box className={classes.menuSliderContainer}>
       <List>
