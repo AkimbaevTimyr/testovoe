@@ -4,10 +4,13 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  Button,
+  Typography,
+  Modal
 } from "@mui/material";
-import { FC, useContext } from "react";
- 
+import { FC,} from "react";
 import { makeStyles } from "tss-react/mui";
+import TagModal from "../TagModal/TagModal";
 
 const useStyles = makeStyles()(() => ({
   menuSliderContainer: {
@@ -20,7 +23,8 @@ const useStyles = makeStyles()(() => ({
   },
   listItem: {
     color: "black"
-  }
+  },
+ 
 }));
 
 const listItems = [
@@ -58,6 +62,7 @@ const SideBar: FC<SideBarProps> = ({click}) => {
             <ListItemText primary={el.listText} />
         </ListItem>
         ))}
+         <TagModal />
       </List>
     </Box>
   );

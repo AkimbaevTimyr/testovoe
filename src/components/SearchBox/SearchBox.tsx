@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {FC} from 'react'
 import InputBase from '@mui/material/InputBase';
 import { styled, alpha } from '@mui/material/styles';
 
@@ -32,11 +32,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-
-const SearchBox = () => {
+interface SearchBoxProps {
+    setValue: (value: string) => void;
+  }
+  
+const SearchBox: FC<SearchBoxProps> = ({setValue}) => {
     return (
         <Search>
             <StyledInputBase
+                onChange={(e) => setValue(e.target.value)}
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
             />

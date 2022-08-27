@@ -7,7 +7,6 @@ import { NoteType } from "../../types/noteTypes";
 import { observer } from "mobx-react-lite"
 import { FC } from "react";
 
-
 const useStyles = makeStyles()(() => ({
         workSpace: {
             marginTop: 30
@@ -21,13 +20,14 @@ const useStyles = makeStyles()(() => ({
 
 interface WorkspaceProps {
     tag: string;
+    searchValue: string
 }
 
-
-const Workspace: FC<WorkspaceProps> = observer(({tag}) => {
+const Workspace: FC<WorkspaceProps> = observer(({tag, searchValue}) => {
     const {classes} = useStyles()
     const {notes} = useAppContext()
-    const data = notes.notes.filter(el => tag === "Заметки" ? el : el.tag === tag)
+    const data = notes.notes.filter(el => tag === "Заметки" && el.text?.toLowerCase().includes(searchValue) ? el : el.tag === tag && el.text?.toLowerCase().includes(searchValue))
+    console.log(data)
   return (
    <div className={classes.workSpace}>
         <NoteInput />
@@ -36,7 +36,6 @@ const Workspace: FC<WorkspaceProps> = observer(({tag}) => {
             <NoteItem key={el.id} id={el.id} text={el.text} tag={el.tag}/>
         ))}
     </Container>
-      
    </div>
   )
 })

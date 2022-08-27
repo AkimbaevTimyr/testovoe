@@ -1,8 +1,8 @@
-import {NoteInterface, NoteType} from '../types/noteTypes'
+import {NoteType} from '../types/noteTypes'
 import { makeAutoObservable,  action, observable  } from 'mobx'
 
 export default class NoteStore {
-    notes: NoteInterface[];
+    notes: NoteType[];
     constructor(){
         makeAutoObservable(this)
         this.notes = [
@@ -21,7 +21,7 @@ export default class NoteStore {
     //обновление заметки
     updateNote(id: number, text: string | null){
         this.notes.map((el) => (
-            el.id === id ? {el: {...el, text}} : el
+            el.id == id ? {el: {...el, text}} : el
         ))
     }
     //удаление заметки

@@ -1,9 +1,9 @@
 import React, {FC, SyntheticEvent, useState} from 'react'
 import { Typography, Paper, Box } from '@mui/material';
 import { makeStyles } from "tss-react/mui";
-import { NoteInterface, } from '../../types/noteTypes';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppContext } from '../../store/store';
+import { NoteType } from '../../types/noteTypes';
 
 const useStyles = makeStyles()(() => ({
     item: {
@@ -60,18 +60,18 @@ const useStyles = makeStyles()(() => ({
 interface FormEvent<T = Element> extends SyntheticEvent<T> {
 }
 
-const NoteItem: FC<NoteInterface> = ({id, text, tag}) => {
+const NoteItem: FC<NoteType> = ({id, text, tag}) => {
     const {notes} = useAppContext()
     const { classes } = useStyles();
     const [value, setValue] = useState<string | null>('')
+    //добавление заметки после клика вне ее области
     const handleBlur = () =>{
         notes.updateNote(id, value)
     }
-
     const handleInputEvent = (e: FormEvent<HTMLFormElement>) =>{
         setValue(e.currentTarget.textContent)
     }
-
+    //удаление заметки
     const deleteNote = (id: number) =>{
         notes.deleteNote(id)
     }

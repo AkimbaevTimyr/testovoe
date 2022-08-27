@@ -1,4 +1,4 @@
-import { Search } from '@mui/icons-material';
+import {FC} from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,7 +6,11 @@ import Typography from '@mui/material/Typography';
 import SearchBox from '../SearchBox/SearchBox';
 
 
-const NavBar = () => {
+interface NavBarProps {
+  setValue: (value: string) => void;
+}
+
+const NavBar: FC<NavBarProps> = ({setValue}) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -19,7 +23,7 @@ const NavBar = () => {
           >
             KEEP
           </Typography>
-            <SearchBox />
+            <SearchBox setValue={setValue}/>
         </Toolbar>
       </AppBar>
     </Box>

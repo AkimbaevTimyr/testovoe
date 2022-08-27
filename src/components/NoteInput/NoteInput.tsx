@@ -1,56 +1,69 @@
 import {
-    InputBase,
-  } from "@mui/material";
+  InputBase,
+} from "@mui/material";
 import { makeStyles } from "tss-react/mui";
 import Container from '@mui/material/Container';
 import { FC, useState } from "react";
 import { NoteType } from "../../types/noteTypes";
 import { useAppContext } from "../../store/store";
-import {useEffect, useRef} from 'react'
 
 const useStyles = makeStyles()(() => ({
-    container: {
-        display: "flex",
-        justifyContent: "center",
-        flexWrap: 'wrap',
-    },
-    input: {
-        width: 500,
-        border: "1px solid white",
-        borderRadius: "5px",
-        padding: "5px 5px 5px 10px",
-        boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    marginRight: "auto",
+    marginLeft: "auto",
+  },
+  div: {
+    width: 500,
+    boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    borderRadius: 10
+  },
+  input: {
+    display: "inline-block",
+    width: 500,
+    border: "none",
+    outline: "none !important",
+    padding: "5px 5px 5px 10px",
+  },
+  textarea: {
+    resize: "none",
+    width: 495,
+    border: 'none',
+    padding: "5px 5px 5px 15px",
+    "&:focus": {
+      outline: "none !important",
+      border: "none"
     }
-    }));
-   
+  },
+}));
+
 
 
 const NoteInput: FC = () => {
-  const inputRef = useRef<HTMLHeadingElement>(null)
-    // useEffect(() => {
-    //     document.addEventListener('click', (e: any) => {
-    //         if (inputRef.current == null) {
-    //         }
-    //     })
-    // }, [])
-    const {notes} = useAppContext()
-    const {classes} = useStyles()
-    const [text, setText] = useState<string>('')
+  const { notes } = useAppContext()
+  const { classes } = useStyles()
+  const [text, setText] = useState<string>('')
+  const [tag, setTag] = useState<string>("")
 
-    const handleBlur = () =>{
-      if(text.length != 0){
-        const note: NoteType = {
-          id: Number(Date.now()),
-          text,
-          tag: ""
-        }
-        notes.setNotes(note)
-        setText("")
+  const handleBlur = () => {
+    if (text.length != 0 && tag.length != 0) {
+      const note: NoteType = {
+        id: Number(Date.now()),
+        text,
+        tag
       }
+      notes.setNotes(note)
+      setText("")
+      setTag("")
     }
+  }
   return (
-    <Container  ref={inputRef} className={classes.container} maxWidth="xl">
-        <InputBase value={text} onBlur={handleBlur} onChange={(e)=> setText(e.target.value)} className={classes.input} placeholder='Заметка...'/>
+    <Container className={classes.container} maxWidth="sm">
+      <div onBlur={handleBlur} className={classes.div}>
+        <InputBase value={text} onChange={(e) => setText(e.target.value)} className={classes.input} placeholder='Заметка...' />
+        <InputBase className={classes.input} value={tag} onChange={(e) => setTag(e.target.value)} placeholder='Тег...' />
+      </div>
     </Container>
   )
 }
