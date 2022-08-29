@@ -70,7 +70,6 @@ interface FormEvent<T = Element> extends SyntheticEvent<T> {
 }
 
 const NoteItem: FC<NoteType> = observer(({ id, text, tag }) => {
-    console.log(text)
     const { notes } = useAppContext()
     const { classes } = useStyles();
     const [value, setValue] = useState<string | null>('')

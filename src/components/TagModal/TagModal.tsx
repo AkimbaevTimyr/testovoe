@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 import { Box, InputBase } from '@mui/material/';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
@@ -33,8 +33,8 @@ const style = {
 
 
 
-const TagModal = () => {
-  const { tags } = useAppContext()
+const TagModal: FC = () => {
+  const { tags } = useAppContext() //получение тегов
   const [open, setOpen] = useState(false);
   const [tag, setTag] = useState<string>('')
   const { classes } = useStyles()
@@ -64,9 +64,5 @@ const TagModal = () => {
     </div>
   );
 }
-
-// value={text}
-// onChange={(e) => setText(e.target.value)}
-
 
 export default TagModal

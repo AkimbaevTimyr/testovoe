@@ -46,6 +46,7 @@ const NoteInput: FC = () => {
   const [text, setText] = useState<string>('')
   const [tag, setTag] = useState<string>("")
 
+  //проверка на существование тега и заметки, если они существуют происходит добавление заметки
   const handleBlur = () => {
     if (text.length != 0 && tag.length != 0) {
       const note: NoteType = {

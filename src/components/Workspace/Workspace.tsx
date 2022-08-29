@@ -25,9 +25,9 @@ interface WorkspaceProps {
 
 const Workspace: FC<WorkspaceProps> = observer(({tag, searchValue}) => {
     const {classes} = useStyles()
-    const {notes} = useAppContext()
+    const {notes} = useAppContext() // получние заметок 
+    // фильтрация заметок по тегу и введенным символам в строку поиска
     const data = notes.notes.filter(el => tag === "Заметки" && el.text?.toLowerCase().includes(searchValue) ? el : el.tag === tag && el.text?.toLowerCase().includes(searchValue))
-    console.log(data)
   return (
    <div className={classes.workSpace}>
         <NoteInput />
