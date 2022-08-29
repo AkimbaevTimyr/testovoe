@@ -79,7 +79,9 @@ const NoteItem: FC<NoteType> = observer(({ id, text, tag }) => {
     };
     //добавление заметки после клика вне ее области
     const handleBlur = () => {
-        notes.updateNote(id, value)
+        if(value?.length != 0){
+            notes.updateNote(id, value)
+        }
     }
     const handleInputEvent = (e: FormEvent<HTMLFormElement>) => {
         setValue(e.currentTarget.textContent)
