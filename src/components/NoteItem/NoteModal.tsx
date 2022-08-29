@@ -83,14 +83,16 @@ interface NoteModalProps {
     handleInputEvent: (e: any) => void;
     text: string | null;
     tag: string;
+    handleBlur: () => void;
 }
 
-const NoteModal: FC<NoteModalProps> = observer(({ id, open, setOpen, text, tag, deleteNote, handleInputEvent }) => {
+const NoteModal: FC<NoteModalProps> = observer(({ id, open, setOpen, text, tag, deleteNote, handleInputEvent,handleBlur }) => {
     const { classes } = useStyles()
 
     //при клике на кнопк или вне ее области происходит добавление заметки
     const handleClose = () => {
         setOpen(false)
+        handleBlur()
     };
 
     return (

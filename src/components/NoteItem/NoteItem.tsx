@@ -100,7 +100,7 @@ const NoteItem: FC<NoteType> = observer(({ id, text, tag }) => {
             <Typography className={classes.itemTag}>
                 {tag}
             </Typography>
-            <NoteModal setOpen={(bool) => setOpen(bool)} open={open} text={text} tag={tag} id={id} deleteNote={(id)=> deleteNote(id)} handleInputEvent={(e)=> handleInputEvent(e)}/>
+            <NoteModal setOpen={(bool) => setOpen(bool)} open={open} text={text} tag={tag} id={id} deleteNote={(id)=> deleteNote(id)} handleInputEvent={(e)=> handleInputEvent(e)} handleBlur={()=> handleBlur()}/>
         </Paper>
     )
 })
