@@ -1,9 +1,12 @@
-import React, {FC, SyntheticEvent, useState} from 'react'
+import React, { FC, SyntheticEvent, useState } from 'react'
 import { Typography, Paper, Box } from '@mui/material';
 import { makeStyles } from "tss-react/mui";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useAppContext } from '../../store/store';
 import { NoteType } from '../../types/noteTypes';
+import NoteModal from './NoteModal';
+import { observer } from 'mobx-react-lite';
+
 
 const useStyles = makeStyles()(() => ({
     item: {
@@ -53,41 +56,55 @@ const useStyles = makeStyles()(() => ({
     box: {
         display: "block",
         alignItems: 'center',
-    }
+    },
+    input: {
+        display: "inline-block",
+        width: 300,
+        padding: "5px 5px 5px 10px",
+        boxShadow: "0 0 10px rgba(0,0,0,0.2)",
+    },
 }));
 
 //интерфейс для event получаемого в резутате редактирования заметки
 interface FormEvent<T = Element> extends SyntheticEvent<T> {
 }
 
-const NoteItem: FC<NoteType> = ({id, text, tag}) => {
-    const {notes} = useAppContext()
+const NoteItem: FC<NoteType> = observer(({ id, text, tag }) => {
+    console.log(text)
+    const { notes } = useAppContext()
     const { classes } = useStyles();
     const [value, setValue] = useState<string | null>('')
+    const [open, setOpen] = useState<boolean>(false);
+    const handleOpen = () => {
+        setOpen(true);
+    };
     //добавление заметки после клика вне ее области
-    const handleBlur = () =>{
+    const handleBlur = () => {
         notes.updateNote(id, value)
     }
-    const handleInputEvent = (e: FormEvent<HTMLFormElement>) =>{
+    const handleInputEvent = (e: FormEvent<HTMLFormElement>) => {
         setValue(e.currentTarget.textContent)
     }
     //удаление заметки
-    const deleteNote = (id: number) =>{
+    const deleteNote = (id: number) => {
         notes.deleteNote(id)
     }
     return (
-        <Paper className={classes.item}>
-            <Box className={classes.box}>
-                <DeleteForeverIcon  onClick={()=> deleteNote(id)} className={classes.img}/>
-                <Typography  className={classes.text} suppressContentEditableWarning={true} onBlur={handleBlur} contentEditable onInput={handleInputEvent}>
+        <Paper className={classes.item} onClick={handleOpen}>
+            <Box className={classes.box} >
+                <DeleteForeverIcon onClick={() => deleteNote(id)} className={classes.img} />
+                <Typography className={classes.text} suppressContentEditableWarning={true} onBlur={handleBlur} >
                     {text}
                 </Typography>
             </Box>
             <Typography className={classes.itemTag}>
-               {tag}
+                {tag}
             </Typography>
+            <NoteModal setOpen={(bool) => setOpen(bool)} open={open} text={text} tag={tag} id={id} deleteNote={(id)=> deleteNote(id)} handleInputEvent={(e)=> handleInputEvent(e)}/>
         </Paper>
     )
-}
+})
 
 export default NoteItem
+
+

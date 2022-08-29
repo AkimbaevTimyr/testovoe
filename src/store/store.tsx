@@ -1,10 +1,12 @@
 import { createContext, useContext } from "react";
 import NoteStore from "./note";
+import TagsStore from "./tags";
 
 
 //Создание стора
 const RootStore = {
     notes: new NoteStore(),
+    tags: new TagsStore(),
 }
 
 // Создание контекста и функции для получения данных из контекста

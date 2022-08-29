@@ -20,8 +20,8 @@ export default class NoteStore {
     }
     //обновление заметки
     updateNote(id: number, text: string | null){
-        this.notes.map((el) => (
-            el.id == id ? {el: {...el, text}} : el
+        this.notes = this.notes.map((el) => (
+            el.id === id ? {...el, text} : el
         ))
     }
     //удаление заметки
